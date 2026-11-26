@@ -4,7 +4,7 @@ import store from './store'
 import Element from 'element-ui'
 import i18n from '@/i18n'
 
-// import "element-ui/lib/theme-chalk/index.css"
+import "element-ui/lib/theme-chalk/index.css"  // 部署站定制：CDN 停用后主题改为本地打包
 import 'font-awesome/css/font-awesome.min.css'
 import Message from 'vue-m-message'
 import 'vue-m-message/dist/index.css'
@@ -27,16 +27,16 @@ import filters from '@/common/filters.js'
 import VueCropper from 'vue-cropper'
 
 // import ECharts from 'vue-echarts/components/ECharts.vue'
-// import 'echarts/lib/chart/bar'
-// import 'echarts/lib/chart/line'
-// import 'echarts/lib/chart/pie'
-// import 'echarts/lib/component/title'
-// import 'echarts/lib/component/grid'
-// import 'echarts/lib/component/dataZoom'
-// import 'echarts/lib/component/legend'
-// import 'echarts/lib/component/tooltip'
-// import 'echarts/lib/component/toolbox'
-// import 'echarts/lib/component/markPoint'
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/chart/line'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/component/title'
+import 'echarts/lib/component/grid'
+import 'echarts/lib/component/dataZoom'
+import 'echarts/lib/component/legend'
+import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/toolbox'
+import 'echarts/lib/component/markPoint'
 // Vue.component('ECharts', ECharts)
 
 // 使用CDN的方式如下引入echarts
@@ -52,7 +52,7 @@ import mavonEditor from 'mavon-editor'  //引入markdown编辑器
 import 'mavon-editor/dist/css/index.css';
 Vue.use(mavonEditor)
 
-// import 'muse-ui/dist/muse-ui.css';
+import 'muse-ui/dist/muse-ui.css';  // 部署站定制：CDN 停用后样式改为本地打包
 import MuseUI from 'muse-ui'
 Vue.use(MuseUI)
 

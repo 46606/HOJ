@@ -5,7 +5,9 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin'); // 开�
 const isProduction = process.env.NODE_ENV === 'production';
 
 // 本地环境是否需要使用cdn
-const devNeedCdn = true;
+// 部署站定制：CDN 全站停用（线上 dist 无外链、库全部打进 chunk-vendors），
+// 如需恢复 CDN 方案，将此开关置 true 并恢复下方两处注入条件
+const devNeedCdn = false;
 
 // cdn链接
 const cdn = {
@@ -106,8 +108,8 @@ module.exports={
   chainWebpack: config => {
     // ============注入cdn start============
     config.plugin('html').tap(args => {
-        // 生产环境或本地需要cdn时，才注入cdn
-        if (isProduction || devNeedCdn) args[0].cdn = cdn
+        // 部署站定制：不注入 CDN 外链（原条件 isProduction || devNeedCdn）
+        if (devNeedCdn) args[0].cdn = cdn
         return args
     })
     config.plugin('webpack-bundle-analyzer') // 查看打包文件体积大小
@@ -116,9 +118,10 @@ module.exports={
 
   },
   configureWebpack: (config) => {
-    // 用cdn方式引入，则构建时要忽略相关资源
+    // 部署站定制：停用下方整个 CDN/externals/UglifyJS/gzip 块（原条件 isProduction || devNeedCdn）。
+    // 保留 vue-cli 默认的 terser 压缩（线上产物为压缩态，但模板字符串未被 uglify-js 降级，可据此验证）
     const plugins = [];
-    if (isProduction || devNeedCdn){
+    if (devNeedCdn){
       config.externals = cdn.externals
       config.mode = 'production';
       config["performance"] = {//打包文件大小配置
